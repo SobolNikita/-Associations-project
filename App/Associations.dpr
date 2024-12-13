@@ -99,15 +99,16 @@ begin
     begin
       Write(PlayersWords[j][1][k], ', ');
     end;
-    Writeln(PlayersWords[j][1][3], ', ');
+    Writeln(PlayersWords[j][1][3]);
 
     Write('Ваш ответ: ');
     ReadLn(Guess);
     Writeln;
     if Guess = Words[j] then
     begin
+      Players[j].Points := Players[j].Points + 1;
       Players[i].Points := Players[i].Points + 3;
-      WriteLn('Правильно! Вы получаете 3 очка.');
+      WriteLn('Правильно! Вы получаете 3 очка. Загадывающий игрок получает 1 очко.');
       //TODO remove continue
       Continue;
     end;
@@ -118,15 +119,16 @@ begin
     begin
       Write(PlayersWords[j][2][k], ', ');
     end;
-    Writeln(PlayersWords[j][2][3], ', ');
+    Writeln(PlayersWords[j][2][3]);
 
     Write('Ваш ответ: ');
     ReadLn(Guess);
     Writeln;
     if Guess = Words[j] then
     begin
+      Players[j].Points := Players[j].Points + 1;
       Players[i].Points := Players[i].Points + 2;
-      WriteLn('Правильно! Вы получаете 2 очка.');
+      WriteLn('Правильно! Вы получаете 2 очка. Загадывающий игрок получает 1 очко.');
       //TODO remove continue
       Continue;
     end;
@@ -137,7 +139,7 @@ begin
     begin
       Write(PlayersWords[j][3][k], ', ');
     end;
-    Writeln(PlayersWords[j][3][3], ', ');
+    Writeln(PlayersWords[j][3][3]);
 
     Write('Ваш ответ: ');
     ReadLn(Guess);
