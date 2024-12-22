@@ -9,7 +9,7 @@ uses
 
 const
   MaxPlayers = 5;
-  wordsSize = 10;
+  wordsSize = 110;
 
 type
   TPlayer = record
