@@ -9,9 +9,9 @@ uses
 
 const
   MaxPlayers = 5;
-
+  wordsSize = 10;
   // TODO import words from file
-  Dictionary: array[1..10] of string = (
+  Dictionary: array[1..wordsSize] of string = (
     'яблоко', 'банан', 'вишня', 'виноград', 'ананас',
     'груша', 'слива', 'мёд', 'киви', 'лемон'
   );
@@ -30,11 +30,16 @@ var
   Players: array[1..MaxPlayers] of TPlayer;
   NumPlayers: Integer;
   Round: Integer;
+  used: array[1..wordsSize] of boolean;
 
 procedure InitializePlayers;
 var
   i: Integer;
 begin
+  for i := 1 to wordsSize do
+  begin
+    used[i] := false;
+  end;
   Write('Введите количество игроков (от 2 до 5): ');
   ReadLn(NumPlayers);
 
@@ -65,7 +70,12 @@ begin
   begin
     // Wondering
     WordIndex := Random(Length(Dictionary)) + 1;
-    //TODO Check if !used[wordIndex]
+    
+    while used[WordIndex] do
+    begin
+      WordIndex := Random(Length(Dictionary)) + 1; 
+    end;
+    used[WordIndex] := true;
 
     Words[i] := Dictionary[WordIndex];
     WriteLn('Игрок ', Players[i].Name, ', вам нужно загадать слово.');
