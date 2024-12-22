@@ -28,9 +28,11 @@ type Tmas2 = array[1..MaxPlayers] of String;
 
 var
   Players: array[1..MaxPlayers] of TPlayer;
+  NumPlayersInput : string[255];
   NumPlayers: Integer;
   Round: Integer;
   used: array[1..wordsSize] of boolean;
+  InputFlag: boolean;
 
 procedure InitializePlayers;
 var
@@ -41,17 +43,34 @@ begin
     used[i] := false;
   end;
   Write('Введите количество игроков (от 2 до 5): ');
-  ReadLn(NumPlayers);
-
-  //TODO Validation
-  if NumPlayers < 2 then NumPlayers := 2;
-  if NumPlayers > 5 then NumPlayers := 5;
-  //TODO Validation
+  ReadLn(NumPlayersInput);
+  NumPlayersInput := Trim(NumPlayersInput);
+  InputFlag := false;
+  while (not InputFlag) do
+  begin
+    InputFlag := true;
+    if (NumPlayersInput <> '2') and (NumPlayersInput <> '3') and
+       (NumPlayersInput <> '4') and (NumPlayersInput <> '5') then
+    begin
+      writeln('Неверный ввод. Введите количество игроков (от 2 до 5): ');
+      ReadLn(NumPlayersInput);
+      NumPlayersInput := Trim(NumPlayersInput);
+      InputFlag := false;
+    end;
+  end;
+  NumPlayers := StrToInt(NumPlayersInput);
 
   for i := 1 to NumPlayers do
   begin
     Write('Введите имя игрока ', i, ': ');
     ReadLn(Players[i].Name);
+    Players[i].Name := Trim(Players[i].Name);
+    while Length(Players[i].Name) = 0 do
+    begin
+      writeln('Имя должно содержать не менее одной буквы или цифры! Повторите ввод имени игрока ', i, ': ');
+      ReadLn(Players[i].Name);
+      Players[i].Name := Trim(Players[i].Name);
+    end;
     Players[i].Points := 0;
   end;
 end;
@@ -113,6 +132,7 @@ begin
 
     Write('Ваш ответ: ');
     ReadLn(Guess);
+    Guess := Trim(Guess);
     Writeln;
     if Guess = Words[j] then
     begin
@@ -133,6 +153,7 @@ begin
 
     Write('Ваш ответ: ');
     ReadLn(Guess);
+    Guess := Trim(Guess);
     Writeln;
     if Guess = Words[j] then
     begin
@@ -153,6 +174,7 @@ begin
 
     Write('Ваш ответ: ');
     ReadLn(Guess);
+    Guess := Trim(Guess);
     Writeln;
     if Guess = Words[j] then
     begin
@@ -218,10 +240,10 @@ end.
 {
 
 ! 1. База данных слов и чтение из файла
-! 2. Валидация введенных данных
+! 2. Валидация введенных данных +
 ! 3. Разбить на чуть большее количество функций
-! 4. Проверка на повторное использование слов (нельзя)
-! 5. Убрать continue и exit (она их не любит)
+! 4. Проверка на повторное использование слов (нельзя) +
+! 5. Убрать continue и exit
 ! 6. Делать победителем ПЕРВОГО, кто набрал 15, сейчас он берет рандомного, если 15 баллов набрали несколько человек в одном раунде
 ! 7. Сделать возможность вводить слова через пробел, а не только через знак ввода
 ! 8. Валидация на регистр букв
