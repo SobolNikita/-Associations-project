@@ -116,7 +116,7 @@ var f: TextFile;
     i: integer;
 begin
 
-  AssignFile(F, '../../words.txt', CP_UTF8);
+  AssignFile(F, 'D:\bsuir\opi\Associations\App\words.txt', CP_UTF8);
   Reset(f);
   i:=1;
   Result := '';

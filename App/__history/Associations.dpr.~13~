@@ -116,8 +116,9 @@ var f: TextFile;
     i: integer;
 begin
 
-  AssignFile(F, '../../words.txt', CP_UTF8);
+  AssignFile(F, 'words.txt');
   Reset(f);
+  writeln('there');
   i:=1;
   Result := '';
   while (i<=ind) and (not Eof(f)) do
