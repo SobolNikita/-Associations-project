@@ -249,7 +249,7 @@ begin
     PlayRound;
     ShowResults;
     Writeln;
-  until GameOver(Players, MaxPlayers);
+  until GameOver;
 
   WriteLn('Игра окончена.');
   ReadLn;
