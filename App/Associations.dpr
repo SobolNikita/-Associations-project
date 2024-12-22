@@ -162,10 +162,11 @@ begin
     PlayersWords[i][3] := getThreeWords;
 
   end;
-  flag := false;
+  
   // Guessing
   for i := 1 to NumPlayers do
   begin
+    flag := false;
     j := i + 1;
     if j > NumPlayers then
     begin
@@ -184,6 +185,12 @@ begin
     Write('Ваш ответ: ');
     ReadLn(Guess);
     Guess := AnsiLowerCase(Trim(Guess));
+    while Length(Guess) = 0 do
+    begin
+      writeln('Ответ должен содержать как минимум одну букву или цифру. Повторите ввод: ');
+      ReadLn(Guess);
+      Guess := AnsiLowerCase(Trim(Guess));
+    end;
     Writeln;
     if Guess = Words[j] then
     begin
@@ -206,6 +213,12 @@ begin
       Write('Ваш ответ: ');
       ReadLn(Guess);
       Guess := AnsiLowerCase(Trim(Guess));
+      while Length(Guess) = 0 do
+      begin
+        writeln('Ответ должен содержать как минимум одну букву или цифру. Повторите ввод: ');
+        ReadLn(Guess);
+        Guess := AnsiLowerCase(Trim(Guess));
+      end;
       Writeln;
       if Guess = Words[j] then
       begin
@@ -228,6 +241,12 @@ begin
       Write('Ваш ответ: ');
       ReadLn(Guess);
       Guess := AnsiLowerCase(Trim(Guess));
+      while Length(Guess) = 0 do
+      begin
+        writeln('Ответ должен содержать как минимум одну букву или цифру. Повторите ввод: ');
+        ReadLn(Guess);
+        Guess := AnsiLowerCase(Trim(Guess));
+      end;
       Writeln;
       if Guess = Words[j] then
       begin
