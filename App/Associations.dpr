@@ -22,10 +22,12 @@ type
     Points: Integer;
   end;
 
-type Mattrix = array[1..3] of array[1..3] of string;
+type ThreeWords = array[1..3] of string[255];
+     Mattrix = array[1..3] of ThreeWords;
      Tmas = array[1..MaxPlayers] of Mattrix;
      Tmas2 = array[1..MaxPlayers] of String;
      TPlasyers = array[1..MaxPlayers] of TPlayer;
+     
 var
   Players: TPlasyers;
   NumPlayersInput : string[255];
@@ -75,6 +77,45 @@ begin
   end;
 end;
 
+function getThreeWords : ThreeWords;
+var s, curS: string[255];
+    cnt, l, r: integer;
+    res: ThreeWords;
+begin
+  cnt := 0;
+  while cnt < 3 do
+  begin
+    readln(s);
+    s := Trim(s);
+    l := 1;
+    while l <= Length(s) do
+    begin
+      r := l;
+      curS := s[l];
+      while (r+1<=Length(s)) and (s[r+1]<>' ') do
+      begin
+        r := r + 1;
+        curS := curS + s[r];
+      end;
+      cnt := cnt + 1;
+      if cnt <= 3 then
+      begin
+        res[cnt] := curS;
+      end;
+      l := r + 1;
+      while (l <= Length(s)) and (s[l] = ' ') do
+      begin
+        l := l + 1;
+      end;
+    end;
+  end;
+  if cnt > 3 then
+  begin
+    writeln('Все слова после третьего были проигнорированы.')
+  end;
+  Result := res;
+end;
+
 procedure PlayRound;
 //TODO make more functions
 var
@@ -101,16 +142,14 @@ begin
     WriteLn('Игрок ', Players[i].Name, ', вам нужно загадать слово.');
 
     Write('Введите 3 прилагательных к слову "', Words[i], '": ');
-    for j := 1 to 3 do
-      ReadLn(PlayersWords[i][1][j]);
+    PlayersWords[i][1] := getThreeWords;
 
     Write('Введите 3 глагола к слову "', Words[i], '": ');
-    for j := 1 to 3 do
-      ReadLn(PlayersWords[i][2][j]);
+    PlayersWords[i][2] := getThreeWords;
 
     Write('Введите 3 существительных к слову "', Words[i], '": ');
-    for j := 1 to 3 do
-      ReadLn(PlayersWords[i][3][j]);
+    PlayersWords[i][3] := getThreeWords;
+
   end;
   flag := false;
   // Guessing
@@ -218,7 +257,6 @@ begin
     if Players[i].Points >= 15 then
     begin
       Result := True;
-      //WriteLn('Победитель: ', Players[i].Name);
       winners := winners + 1;
     end;
   end;
@@ -274,7 +312,7 @@ end.
 ! 4. Проверка на повторное использование слов (нельзя) +
 ! 5. Убрать continue и exit +
 ! 6. Делать победителем ВСЕХ, кто набрал 15, сейчас он берет рандомного, если 15 баллов набрали несколько человек в одном раунде +
-! 7. Сделать возможность вводить слова через пробел, а не только через знак ввода
+! 7. Сделать возможность вводить слова через пробел, а не только через знак ввода +
 ! 8. Валидация на регистр букв
 
 }
