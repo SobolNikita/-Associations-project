@@ -13,7 +13,7 @@ const
   // TODO import words from file
   Dictionary: array[1..wordsSize] of string = (
     'яблоко', 'банан', 'вишня', 'виноград', 'ананас',
-    'груша', 'слива', 'мёд', 'киви', 'лимон'
+    'груша', 'слива', 'мёд', 'киви', 'лемон'
   );
 
 type
@@ -84,7 +84,7 @@ var
   Guess: string;
   PlayersWords : TMas;
   Correct: Boolean;
-  flag: boolean;
+  flag: false;
 begin
   for i := 1 to NumPlayers do
   begin
@@ -144,7 +144,7 @@ begin
       flag := true;
     end;
 
-    if not flag then
+    if not flag
     begin
       // Attempt 2
       WriteLn('Неверно. Глаголы: ');
@@ -186,7 +186,6 @@ begin
         Players[j].Points := Players[j].Points + 1;
         Players[i].Points := Players[i].Points + 1;
         WriteLn('Правильно! Вы и загадывающий игрок получаете по 1 очку.');
-        flag := true;
       end
       else
       begin
@@ -272,7 +271,7 @@ end.
 ! 2. Валидация введенных данных +
 ! 3. Разбить на чуть большее количество функций
 ! 4. Проверка на повторное использование слов (нельзя) +
-! 5. Убрать continue и exit +
+! 5. Убрать continue и exit
 ! 6. Делать победителем ВСЕХ, кто набрал 15, сейчас он берет рандомного, если 15 баллов набрали несколько человек в одном раунде +
 ! 7. Сделать возможность вводить слова через пробел, а не только через знак ввода
 ! 8. Валидация на регистр букв
