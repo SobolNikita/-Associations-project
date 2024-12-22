@@ -138,7 +138,7 @@ begin
     end;
     used[WordIndex] := true;
 
-    Words[i] := Dictionary[WordIndex];
+    Words[i] := AnsiLowerCase(Dictionary[WordIndex]);
     WriteLn('Игрок ', Players[i].Name, ', вам нужно загадать слово.');
 
     Write('Введите 3 прилагательных к слову "', Words[i], '": ');
@@ -172,7 +172,7 @@ begin
 
     Write('Ваш ответ: ');
     ReadLn(Guess);
-    Guess := Trim(Guess);
+    Guess := AnsiLowerCase(Trim(Guess));
     Writeln;
     if Guess = Words[j] then
     begin
@@ -195,7 +195,7 @@ begin
 
       Write('Ваш ответ: ');
       ReadLn(Guess);
-      Guess := Trim(Guess);
+      Guess := AnsiLowerCase(Trim(Guess));
       Writeln;
       if Guess = Words[j] then
       begin
@@ -218,7 +218,7 @@ begin
 
       Write('Ваш ответ: ');
       ReadLn(Guess);
-      Guess := Trim(Guess);
+      Guess := AnsiLowerCase(Trim(Guess));
       Writeln;
       if Guess = Words[j] then
       begin
@@ -313,7 +313,7 @@ end.
 ! 5. Убрать continue и exit +
 ! 6. Делать победителем ВСЕХ, кто набрал 15, сейчас он берет рандомного, если 15 баллов набрали несколько человек в одном раунде +
 ! 7. Сделать возможность вводить слова через пробел, а не только через знак ввода +
-! 8. Валидация на регистр букв
+! 8. Валидация на регистр букв +
 
 }
 //454654
