@@ -205,7 +205,7 @@ var
   f: TextFile;
   i: Integer;
 begin
-  AssignFile(f, 'D:\ฯฮศา\๎๏่\Assotiations\Associations-game\App with interface\words.txt', CP_UTF8);
+  AssignFile(f, 'words.txt', CP_UTF8);
   Reset(f);
   i := 1;
   Result := '';
