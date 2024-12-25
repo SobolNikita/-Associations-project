@@ -14,15 +14,16 @@ object Form1: TForm1
     Size.Width = 648.000000000000000000
     Size.Height = 446.000000000000000000
     Size.PlatformDefault = False
-    StyleLookup = 'calloutpanelstyle'
+    StyleLookup = 'panelstyle'
     Visible = False
     TabOrder = 2
     object WhoGuessLabel: TLabel
+      AutoSize = True
       StyledSettings = [Family, FontColor]
-      Position.X = 152.000000000000000000
-      Position.Y = 57.000000000000000000
-      Size.Width = 385.000000000000000000
-      Size.Height = 33.000000000000000000
+      Position.X = 126.000000000000000000
+      Position.Y = 49.000000000000000000
+      Size.Width = 514.000000000000000000
+      Size.Height = 24.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 18.000000000000000000
       TextSettings.Font.StyleExt = {00060000000000000004000000}
@@ -128,6 +129,7 @@ object Form1: TForm1
         TabOrder = 0
         Text = 'OK'
         OnClick = EditButtonOkClick
+        OnEnter = EditButtonOkClick
       end
     end
     object ButtonNextPlayer: TButton
@@ -438,11 +440,12 @@ object Form1: TForm1
       TabOrder = 4
     end
     object PlayerGuessWords: TLabel
+      AutoSize = True
       StyledSettings = [Family, FontColor]
-      Position.X = 88.000000000000000000
+      Position.X = 96.000000000000000000
       Position.Y = 25.000000000000000000
-      Size.Width = 441.000000000000000000
-      Size.Height = 17.000000000000000000
+      Size.Width = 450.000000000000000000
+      Size.Height = 18.666664123535160000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00060000000000000004000000}
