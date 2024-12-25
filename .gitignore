@@ -1,4 +1,4 @@
 /.vscode
 /.DS_Store
-/App/.DS_Store
+*.DS_Store
 *.~3~
