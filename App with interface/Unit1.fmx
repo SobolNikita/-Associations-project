@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 0
   Top = 0
   Caption = 'GAME'
-  ClientHeight = 438
-  ClientWidth = 648
+  ClientHeight = 446
+  ClientWidth = 645
   Position = ScreenCenter
   Visible = True
   FormFactor.Width = 320
@@ -101,7 +101,7 @@ object Form1: TForm1
       AutoSize = True
       Position.X = 240.000000000000000000
       Position.Y = 311.000000000000000000
-      Size.Width = 161.333312988281300000
+      Size.Width = 161.500000000000000000
       Size.Height = 16.000000000000000000
       Size.PlatformDefault = False
       Text = 'IsRight'
@@ -266,7 +266,7 @@ object Form1: TForm1
       Size.Height = 49.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 14.000000000000000000
-      Text = #1042#1074#1077#1076#1080#1090#1077' '#1080#1084#1077#1085#1072' '#1080#1075#1088#1086#1082#1086#1074' ( '#1095#1077#1088#1077#1079' enter)'
+      Text = #1042#1074#1077#1076#1080#1090#1077' '#1080#1084#1077#1085#1072' '#1080#1075#1088#1086#1082#1086#1074':'
       Visible = False
       TabOrder = 3
     end

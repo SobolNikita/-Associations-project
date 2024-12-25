@@ -39,6 +39,8 @@ var
   used: array [1 .. wordsSize] of boolean;
   InputFlag: boolean;
   IsNameWrite: boolean;
+  InputPlayersCnt, l, r: Integer;
+  CurInput: string[255];
 
 type
   TForm1 = class(TForm)
@@ -138,21 +140,53 @@ begin
   if NamesMemo.Text = '' then
     IsNameWrite := false
   else
-    for i := 1 to NumPlayers do
+    InputPlayersCnt := 0;
+    i := 0;
+    while i < NamesMemo.Lines.Count do
     begin
-      Players[i].Name := NamesMemo.Lines[i - 1];
-      Players[i].Name := Trim(Players[i].Name);
-      if Players[i].Name = '' then
+      NamesMemo.Lines[i] := Trim(NamesMemo.Lines[i]);
+      l := 1;
+      while l <= Length(NamesMemo.Lines[i]) do
       begin
-        IsNameWrite := false;
-        Players[i].Name := NamesMemo.Lines[i - 1];
-        Players[i].Name := Trim(Players[i].Name);
+        CurInput := NamesMemo.Lines[i][l];
+        r := l;
+        while (r + 1 <= Length(NamesMemo.Lines[i]))
+              and (NamesMemo.Lines[i][r] <> ' ')
+        do
+        begin
+          r := r + 1;
+          CurInput := CurInput + NamesMemo.Lines[i][r];
+        end;
+        while (r + 1 <= Length(NamesMemo.Lines[i]))
+              and (NamesMemo.Lines[i][r + 1] = ' ')
+        do
+        begin
+          r := r + 1;
+        end;
+        l := r + 1;
+        if (InputPlayersCnt < NumPlayers) then
+        begin
+          Players[InputPlayersCnt + 1].Name := CurInput;
+          Players[InputPlayersCnt + 1].Points := 0;
+        end;
+        InputPlayersCnt := InputPlayersCnt + 1;
       end;
-      Players[i].Points := 0;
+      i := i + 1;
     end;
-  if not IsNameWrite then
-    ShowMessage
+    if not IsNameWrite then
+      ShowMessage
       ('Имя должно содержать не менее одной буквы или цифры! Повторите ввод имени!');
+    if InputPlayersCnt < NumPlayers then
+    begin
+      ShowMessage
+      ('Вы ввели недостаточно имён! Повторите ввод!');
+      IsNameWrite := false;
+    end;
+    if InputPlayersCnt > NumPlayers then
+    begin
+      ShowMessage
+      ('Введено слишком много имён! Лишние были проигнорированы!');
+    end;
 end;
 
 procedure TForm1.ButtonStartClick(Sender: TObject);
