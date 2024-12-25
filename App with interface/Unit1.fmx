@@ -363,12 +363,15 @@ object Form1: TForm1
       DataDetectorTypes = []
       StyledSettings = [Family, Style, FontColor]
       TextSettings.Font.Size = 14.000000000000000000
+      OnChange = AdjChange
       Position.X = 47.000000000000000000
       Position.Y = 106.000000000000000000
       Size.Width = 161.000000000000000000
       Size.Height = 88.000000000000000000
       Size.PlatformDefault = False
       TabOrder = 2
+      ParentShowHint = False
+      ShowHint = False
       Viewport.Width = 157.000000000000000000
       Viewport.Height = 84.000000000000000000
     end
@@ -389,6 +392,7 @@ object Form1: TForm1
     object Verb: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
       DataDetectorTypes = []
+      OnChange = VerbChange
       Position.X = 248.000000000000000000
       Position.Y = 106.000000000000000000
       Size.Width = 161.000000000000000000
@@ -401,6 +405,7 @@ object Form1: TForm1
     object Noun: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
       DataDetectorTypes = []
+      OnChange = NounChange
       Position.X = 456.000000000000000000
       Position.Y = 106.000000000000000000
       Size.Width = 161.000000000000000000
