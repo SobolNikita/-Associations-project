@@ -348,6 +348,7 @@ begin
     ShowMessage
     ('¬ведено слишком много слов! Ћишние будут проигнорированы!');
   end;
+  InputWordsCnt := 0;
 end;
 
 procedure TForm1.EditButtonOkClick(Sender: TObject);
@@ -531,6 +532,7 @@ begin
     ShowMessage
     ('¬ведено слишком много слов! Ћишние будут проигнорированы!');
   end;
+  InputWordsCnt := 0;
 end;
 
 procedure TForm1.ButtomNextRoundClick(Sender: TObject);
@@ -611,6 +613,7 @@ begin
     ShowMessage
     ('¬ведено слишком много слов! Ћишние будут проигнорированы!');
   end;
+  InputWordsCnt := 0;
 end;
 
 begin
