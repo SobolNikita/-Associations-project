@@ -96,6 +96,7 @@ type
     procedure ButtonHandOverClick(Sender: TObject);
     procedure ComboBox1ClosePopup(Sender: TObject);
 
+
   private
     { Private declarations }
     procedure RandomWord;
@@ -298,7 +299,7 @@ begin
     j := 1;
   WhoGuessLabel.Text := ('»грок ' + Players[IndexPlayer].Name +
     ', вам нужно угадать слово');
-  MemoAdjGuess.Text := '';
+  GuessEdit.Text := '';
   // Attempt 1
   VerbGuess.Visible := false;
   NounGuess.Visible := false;
@@ -327,6 +328,7 @@ begin
   else if not ButtonNextPlayer.Visible then
     ShowMessage('¬ведите ваш ответ!');
 end;
+
 
 function TForm1.getThreeWords(var S: string; var IsMore3Words:boolean): ThreeWords;
 var
@@ -398,7 +400,6 @@ if IndexPlayer<NumPlayers then
           IsEndOne := true;
         end;
     end;
-   // GuessEdit.Text := '';
   end
   else
   begin
@@ -424,10 +425,7 @@ if IndexPlayer<NumPlayers then
     IsEndOne := true;
   end;
   if IsEndOne then
-  begin
-   // GuessEdit.Text := '';
     CountWrong := 0;
-  end;
 end;
 
 procedure TForm1.ClearGuessing;     //очистка панели после угадывани€

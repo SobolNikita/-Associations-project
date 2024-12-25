@@ -118,7 +118,6 @@ object Form1: TForm1
       Size.Height = 39.000000000000000000
       Size.PlatformDefault = False
       TextPrompt = #1042#1072#1096#1077' '#1087#1088#1077#1076#1087#1086#1083#1086#1078#1077#1085#1080#1077
-      OnEnter = EditButtonOkClick
       object EditButtonOk: TEditButton
         Touch.InteractiveGestures = [LongTap]
         CanFocus = False
@@ -293,28 +292,27 @@ object Form1: TForm1
     Size.Width = 648.000000000000000000
     Size.Height = 446.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 3
     object NameRound: TLabel
       StyledSettings = [Family, Style, FontColor]
-      Position.X = 192.000000000000000000
-      Position.Y = 9.000000000000000000
+      Position.X = 32.000000000000000000
+      Position.Y = 8.000000000000000000
       Size.Width = 249.000000000000000000
       Size.Height = 65.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 20.000000000000000000
       Text = 'NameRound'
-      TabOrder = 0
+      TabOrder = 1
     end
     object MemoResults: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
       DataDetectorTypes = []
-      Position.X = 192.000000000000000000
-      Position.Y = 66.000000000000000000
+      Position.X = 344.000000000000000000
+      Position.Y = 68.000000000000000000
       Size.Width = 225.000000000000000000
       Size.Height = 161.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 1
+      TabOrder = 3
       Viewport.Width = 221.000000000000000000
       Viewport.Height = 157.000000000000000000
     end
@@ -328,7 +326,7 @@ object Form1: TForm1
       TextSettings.Font.Size = 16.000000000000000000
       Text = #1055#1054#1041#1045#1044#1048#1058#1045#1051#1068
       Visible = False
-      TabOrder = 2
+      TabOrder = 4
     end
     object MemoWinner: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
@@ -338,7 +336,7 @@ object Form1: TForm1
       Size.Width = 161.000000000000000000
       Size.Height = 65.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 3
+      TabOrder = 5
       Visible = False
       Viewport.Width = 157.000000000000000000
       Viewport.Height = 61.000000000000000000
@@ -349,10 +347,33 @@ object Form1: TForm1
       Size.Width = 169.000000000000000000
       Size.Height = 65.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 4
+      TabOrder = 6
       Text = #1057#1083#1077#1076#1091#1102#1097#1080#1081' '#1088#1072#1091#1085#1076
       TextSettings.Trimming = None
       OnClick = ButtomNextRoundClick
+    end
+    object MemoResultsFor1: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      Position.X = 32.000000000000000000
+      Position.Y = 68.000000000000000000
+      Size.Width = 225.000000000000000000
+      Size.Height = 161.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Viewport.Width = 221.000000000000000000
+      Viewport.Height = 157.000000000000000000
+    end
+    object NameAllRaunds: TLabel
+      StyledSettings = [Family, Style, FontColor]
+      Position.X = 328.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 281.000000000000000000
+      Size.Height = 65.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 20.000000000000000000
+      Text = #1055#1088#1086#1084#1077#1078#1091#1090#1086#1095#1085#1099#1081' '#1080#1090#1086#1075' '#1080#1075#1088#1099
+      TabOrder = 0
     end
   end
   object WriteAssotPanel: TPanel

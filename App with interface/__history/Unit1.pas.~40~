@@ -41,7 +41,7 @@ var
   IsNameWrite: boolean;
   InputPlayersCnt, l, r: Integer;
   CurInput: string[255];
-
+  PointsOf1Round: array [1..MaxPlayers] of integer;
 
 
 type
@@ -88,6 +88,8 @@ type
     ListBoxItem3: TListBoxItem;
     ListBoxItem4: TListBoxItem;
     ListBoxItem5: TListBoxItem;
+    MemoResultsFor1: TMemo;
+    NameAllRaunds: TLabel;
     procedure ButtonStartClick(Sender: TObject);
     procedure ButtonDoneClick(Sender: TObject);
     procedure EditButtonOkClick(Sender: TObject);
@@ -95,6 +97,7 @@ type
     procedure ButtonNextPlayerClick(Sender: TObject);
     procedure ButtonHandOverClick(Sender: TObject);
     procedure ComboBox1ClosePopup(Sender: TObject);
+
 
   private
     { Private declarations }
@@ -106,8 +109,6 @@ type
     procedure ClearGuessing;
     procedure InitializePlayers;
     procedure CheckAnswer(var IsEndOne: boolean);
-
-    // function  CheckAnswer;
   public
     { Public declarations }
     function getThreeWords(var S: string; var IsMore3Words:boolean): ThreeWords;
@@ -234,11 +235,14 @@ begin
 end;
 
 procedure TForm1.NewWordsWriteField;
+var i: integer;
 begin
   InitializePlayersPanel.Visible := false;
   WriteAssotPanel.Visible := true;
   LabelRound.Text := 'РАУНД ' + IntToStr(Round);
   IndexPlayer := 1;
+  for i := 1 to NumPlayers do
+   PointsOf1Round[i]:=0;
   RandomWord;
 end;
 
@@ -255,10 +259,10 @@ begin
   PlayersWords[IndexPlayer][2] := getThreeWords(S,IsMore3Words);
   S := Noun.Text;
   PlayersWords[IndexPlayer][3] := getThreeWords(S,IsMore3Words);
-  if IsMore3Words then
-    ShowMessage('Введено слишком много слов! Лишние были проигнорированы!');
   if InputFlag then
   begin
+  if IsMore3Words then
+    ShowMessage('Введено слишком много слов! Лишние были проигнорированы!');
     Inc(IndexPlayer);
     Adj.Lines.Clear; // очистка полей ввода
     Verb.Lines.Clear;
@@ -300,7 +304,7 @@ begin
     j := 1;
   WhoGuessLabel.Text := ('Игрок ' + Players[IndexPlayer].Name +
     ', вам нужно угадать слово');
-  MemoAdjGuess.Text := '';
+  GuessEdit.Text := '';
   // Attempt 1
   VerbGuess.Visible := false;
   NounGuess.Visible := false;
@@ -318,7 +322,10 @@ begin
   if Guess <> '' then
   begin
     if not ButtonNextPlayer.Visible then
+    begin
       CheckAnswer(IsEndOne);
+      GuessEdit.Text := '';
+    end;
     IsRight.Visible := true;
     if IsEndOne then
       ButtonNextPlayer.Visible := true;
@@ -326,6 +333,7 @@ begin
   else if not ButtonNextPlayer.Visible then
     ShowMessage('Введите ваш ответ!');
 end;
+
 
 function TForm1.getThreeWords(var S: string; var IsMore3Words:boolean): ThreeWords;
 var
@@ -394,10 +402,10 @@ if IndexPlayer<NumPlayers then
         begin
           IsRight.Text := 'Неправильно! Загадывающий игрок теряет 1 очко.';
           Players[NextPlayer].Points := Players[NextPlayer].Points - 1;
+          PointsOf1Round[NextPlayer]:=PointsOf1Round[NextPlayer]- 1;
           IsEndOne := true;
         end;
     end;
-    GuessEdit.Text := '';
   end
   else
   begin
@@ -406,11 +414,13 @@ if IndexPlayer<NumPlayers then
         begin
           IsRight.Text := 'Правильно! Вы получаете 3 очка.';
           Players[IndexPlayer].Points := Players[IndexPlayer].Points + 3;
+          PointsOf1Round[IndexPlayer] := PointsOf1Round[IndexPlayer] + 3;
         end;
       1:
         begin
           IsRight.Text := 'Правильно! Вы получаете 2 очка.';
           Players[IndexPlayer].Points := Players[IndexPlayer].Points + 2;
+          PointsOf1Round[IndexPlayer] := PointsOf1Round[IndexPlayer] + 2;
         end;
       2:
         begin
@@ -418,15 +428,14 @@ if IndexPlayer<NumPlayers then
             'Правильно! Вы и загадывающий игрок получаете по 1 очку.';
           Players[IndexPlayer].Points := Players[IndexPlayer].Points + 1;
           Players[NextPlayer].Points := Players[NextPlayer].Points + 1;
+          PointsOf1Round[IndexPlayer] := PointsOf1Round[NextPlayer] + 1;
+          PointsOf1Round[IndexPlayer] := PointsOf1Round[IndexPlayer] + 1;
         end;
     end;
     IsEndOne := true;
   end;
   if IsEndOne then
-  begin
-    GuessEdit.Text := '';
     CountWrong := 0;
-  end;
 end;
 
 procedure TForm1.ClearGuessing;     //очистка панели после угадывания
@@ -468,8 +477,10 @@ begin
   winners := 0;
   NameRound.Text := 'Результаты ' + IntToStr(Round) + '-го раунда';
   for i := 1 to NumPlayers do
-    MemoResults.Lines.Add(Players[i].Name + ': ' + IntToStr(Players[i].Points) +
-      ' очков');
+  begin
+    MemoResults.Lines.Add(Players[i].Name + ': ' + IntToStr(Players[i].Points) +' очков');
+    MemoResultsFor1.Lines.Add(Players[i].Name + ': ' + IntToStr(PointsOf1Round[i]) +' очков');
+  end;
   Round := Round + 1;
   for i := 1 to NumPlayers do
   begin
@@ -484,8 +495,9 @@ begin
   end;
   if winners > 1 then
     WinnerLabel.Text := 'ПОБЕДИТЕЛИ';
-  if not GameOver then
+ // if not GameOver then
     IndexPlayer := 1;
+    NameRound.Text:='';
 end;
 
 begin

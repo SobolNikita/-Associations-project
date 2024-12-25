@@ -193,6 +193,7 @@ object Form1: TForm1
     end
   end
   object InitializePlayersPanel: TPanel
+    Position.X = -10.000000000000000000
     Size.Width = 648.000000000000000000
     Size.Height = 446.000000000000000000
     Size.PlatformDefault = False
@@ -260,24 +261,12 @@ object Form1: TForm1
       Text = #1042#1099#1073#1077#1088#1080#1090#1077' '#1082#1086#1083#1080#1095#1077#1089#1090#1074#1086' '#1080#1075#1088#1086#1082#1086#1074
       TabOrder = 2
     end
-    object NamesLabel: TLabel
-      StyledSettings = [Family, Style]
-      Position.X = 210.000000000000000000
-      Position.Y = 99.000000000000000000
-      Size.Width = 249.000000000000000000
-      Size.Height = 49.000000000000000000
-      Size.PlatformDefault = False
-      TextSettings.Font.Size = 14.000000000000000000
-      Text = #1042#1074#1077#1076#1080#1090#1077' '#1080#1084#1077#1085#1072' '#1080#1075#1088#1086#1082#1086#1074':'
-      Visible = False
-      TabOrder = 3
-    end
     object NamesMemo: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
       DataDetectorTypes = []
       StyledSettings = [Family, Style, FontColor]
       TextSettings.Font.Size = 18.000000000000000000
-      Position.X = 210.000000000000000000
+      Position.X = 202.000000000000000000
       Position.Y = 136.000000000000000000
       Size.Width = 249.000000000000000000
       Size.Height = 154.000000000000000000
@@ -287,8 +276,21 @@ object Form1: TForm1
       Viewport.Width = 245.000000000000000000
       Viewport.Height = 150.000000000000000000
     end
+    object NamesLabel: TLabel
+      StyledSettings = [Family, Style]
+      Position.X = 202.000000000000000000
+      Position.Y = 99.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 14.000000000000000000
+      Text = #1042#1074#1077#1076#1080#1090#1077' '#1080#1084#1077#1085#1072' '#1080#1075#1088#1086#1082#1086#1074':'
+      Visible = False
+      TabOrder = 3
+    end
   end
   object ResultsPanel: TPanel
+    Position.X = -10.000000000000000000
     Size.Width = 648.000000000000000000
     Size.Height = 446.000000000000000000
     Size.PlatformDefault = False
@@ -296,51 +298,55 @@ object Form1: TForm1
     TabOrder = 3
     object NameRound: TLabel
       StyledSettings = [Family, Style, FontColor]
-      Position.X = 192.000000000000000000
-      Position.Y = 9.000000000000000000
+      Position.X = 48.000000000000000000
+      Position.Y = 8.000000000000000000
       Size.Width = 249.000000000000000000
       Size.Height = 65.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 20.000000000000000000
       Text = 'NameRound'
-      TabOrder = 0
+      TabOrder = 1
     end
     object MemoResults: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
       DataDetectorTypes = []
-      Position.X = 192.000000000000000000
-      Position.Y = 66.000000000000000000
+      StyledSettings = [Family, Style, FontColor]
+      TextSettings.Font.Size = 18.000000000000000000
+      Position.X = 352.000000000000000000
+      Position.Y = 60.000000000000000000
       Size.Width = 225.000000000000000000
       Size.Height = 161.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 1
+      TabOrder = 3
       Viewport.Width = 221.000000000000000000
       Viewport.Height = 157.000000000000000000
     end
     object WinnerLabel: TLabel
       StyledSettings = [Family, Style, FontColor]
       Position.X = 256.000000000000000000
-      Position.Y = 248.000000000000000000
-      Size.Width = 121.000000000000000000
-      Size.Height = 41.000000000000000000
+      Position.Y = 229.000000000000000000
+      Size.Width = 161.000000000000000000
+      Size.Height = 51.000000000000000000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 16.000000000000000000
       Text = #1055#1054#1041#1045#1044#1048#1058#1045#1051#1068
       Visible = False
-      TabOrder = 2
+      TabOrder = 4
     end
     object MemoWinner: TMemo
       Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
       DataDetectorTypes = []
-      Position.X = 224.000000000000000000
-      Position.Y = 288.000000000000000000
-      Size.Width = 161.000000000000000000
-      Size.Height = 65.000000000000000000
+      StyledSettings = [Family, Style, FontColor]
+      TextSettings.Font.Size = 18.000000000000000000
+      Position.X = 208.000000000000000000
+      Position.Y = 272.000000000000000000
+      Size.Width = 201.000000000000000000
+      Size.Height = 113.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 3
+      TabOrder = 5
       Visible = False
-      Viewport.Width = 157.000000000000000000
-      Viewport.Height = 61.000000000000000000
+      Viewport.Width = 197.000000000000000000
+      Viewport.Height = 109.000000000000000000
     end
     object ButtomNextRound: TButton
       Position.X = 224.000000000000000000
@@ -348,10 +354,35 @@ object Form1: TForm1
       Size.Width = 169.000000000000000000
       Size.Height = 65.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 4
+      TabOrder = 6
       Text = #1057#1083#1077#1076#1091#1102#1097#1080#1081' '#1088#1072#1091#1085#1076
       TextSettings.Trimming = None
       OnClick = ButtomNextRoundClick
+    end
+    object MemoResultsFor1: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      StyledSettings = [Family, Style, FontColor]
+      TextSettings.Font.Size = 18.000000000000000000
+      Position.X = 48.000000000000000000
+      Position.Y = 60.000000000000000000
+      Size.Width = 225.000000000000000000
+      Size.Height = 161.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Viewport.Width = 221.000000000000000000
+      Viewport.Height = 157.000000000000000000
+    end
+    object NameAllRaunds: TLabel
+      StyledSettings = [Family, Style, FontColor]
+      Position.X = 336.000000000000000000
+      Position.Y = 8.000000000000000000
+      Size.Width = 281.000000000000000000
+      Size.Height = 65.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Size = 20.000000000000000000
+      Text = #1055#1088#1086#1084#1077#1078#1091#1090#1086#1095#1085#1099#1081' '#1080#1090#1086#1075' '#1080#1075#1088#1099
+      TabOrder = 0
     end
   end
   object WriteAssotPanel: TPanel

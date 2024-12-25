@@ -41,7 +41,7 @@ var
   IsNameWrite: boolean;
   InputPlayersCnt, l, r: Integer;
   CurInput: string[255];
-
+  PointsOf1Round: array [1..MaxPlayers] of integer;
 
 
 type
@@ -88,6 +88,8 @@ type
     ListBoxItem3: TListBoxItem;
     ListBoxItem4: TListBoxItem;
     ListBoxItem5: TListBoxItem;
+    MemoResultsFor1: TMemo;
+    NameAllRaunds: TLabel;
     procedure ButtonStartClick(Sender: TObject);
     procedure ButtonDoneClick(Sender: TObject);
     procedure EditButtonOkClick(Sender: TObject);
@@ -205,7 +207,7 @@ var
   f: TextFile;
   i: Integer;
 begin
-  AssignFile(f, 'D:\ПОИТ\опи\Assotiations\Associations-game\App with interface\words.txt', CP_UTF8);
+  AssignFile(f, 'words.txt', CP_UTF8);
   Reset(f);
   i := 1;
   Result := '';
@@ -233,11 +235,14 @@ begin
 end;
 
 procedure TForm1.NewWordsWriteField;
+var i: integer;
 begin
   InitializePlayersPanel.Visible := false;
   WriteAssotPanel.Visible := true;
   LabelRound.Text := 'РАУНД ' + IntToStr(Round);
   IndexPlayer := 1;
+  for i := 1 to NumPlayers do
+   PointsOf1Round[i]:=0;
   RandomWord;
 end;
 
@@ -397,6 +402,7 @@ if IndexPlayer<NumPlayers then
         begin
           IsRight.Text := 'Неправильно! Загадывающий игрок теряет 1 очко.';
           Players[NextPlayer].Points := Players[NextPlayer].Points - 1;
+          PointsOf1Round[NextPlayer]:=PointsOf1Round[NextPlayer]- 1;
           IsEndOne := true;
         end;
     end;
@@ -408,11 +414,13 @@ if IndexPlayer<NumPlayers then
         begin
           IsRight.Text := 'Правильно! Вы получаете 3 очка.';
           Players[IndexPlayer].Points := Players[IndexPlayer].Points + 3;
+          PointsOf1Round[IndexPlayer] := PointsOf1Round[IndexPlayer] + 3;
         end;
       1:
         begin
           IsRight.Text := 'Правильно! Вы получаете 2 очка.';
           Players[IndexPlayer].Points := Players[IndexPlayer].Points + 2;
+          PointsOf1Round[IndexPlayer] := PointsOf1Round[IndexPlayer] + 2;
         end;
       2:
         begin
@@ -420,6 +428,8 @@ if IndexPlayer<NumPlayers then
             'Правильно! Вы и загадывающий игрок получаете по 1 очку.';
           Players[IndexPlayer].Points := Players[IndexPlayer].Points + 1;
           Players[NextPlayer].Points := Players[NextPlayer].Points + 1;
+          PointsOf1Round[NextPlayer] := PointsOf1Round[NextPlayer] + 1;
+          PointsOf1Round[IndexPlayer] := PointsOf1Round[IndexPlayer] + 1;
         end;
     end;
     IsEndOne := true;
@@ -458,18 +468,20 @@ end;
 procedure TForm1.ShowResults;
 var
   i, winners: Integer;
-  GameOver: boolean;
 begin
-  GameOver := false;
   GuessingPanel.Visible := false;
   ResultsPanel.Visible := true;
   MemoResults.Text := '';
+  MemoResultsFor1.Text:='';
   winners := 0;
   NameRound.Text := 'Результаты ' + IntToStr(Round) + '-го раунда';
   for i := 1 to NumPlayers do
-    MemoResults.Lines.Add(Players[i].Name + ': ' + IntToStr(Players[i].Points) +
-      ' очков');
+  begin
+    MemoResults.Lines.Add(Players[i].Name + ': ' + IntToStr(Players[i].Points) +' очков');
+    MemoResultsFor1.Lines.Add(Players[i].Name + ': ' + IntToStr(PointsOf1Round[i]) +' очков');
+  end;
   Round := Round + 1;
+    IndexPlayer := 1;
   for i := 1 to NumPlayers do
   begin
     if Players[i].Points >= 15 then
@@ -482,9 +494,8 @@ begin
     end;
   end;
   if winners > 1 then
+
     WinnerLabel.Text := 'ПОБЕДИТЕЛИ';
-  if not GameOver then
-    IndexPlayer := 1;
 end;
 
 begin
