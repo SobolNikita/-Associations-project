@@ -41,7 +41,8 @@ var
   IsNameWrite: boolean;
   InputPlayersCnt, l, r: Integer;
   CurInput: string[255];
-  InputWordsCnt: Integer;
+
+
 
 type
   TForm1 = class(TForm)
@@ -94,10 +95,8 @@ type
     procedure ButtonNextPlayerClick(Sender: TObject);
     procedure ButtonHandOverClick(Sender: TObject);
     procedure ComboBox1ClosePopup(Sender: TObject);
-    procedure AdjChange(Sender: TObject);
-    procedure NounChange(Sender: TObject);
-    procedure VerbChange(Sender: TObject);
-   
+
+
   private
     { Private declarations }
     procedure RandomWord;
@@ -108,11 +107,9 @@ type
     procedure ClearGuessing;
     procedure InitializePlayers;
     procedure CheckAnswer(var IsEndOne: boolean);
-
-    // function  CheckAnswer;
   public
     { Public declarations }
-    function getThreeWords(var S: string): ThreeWords;
+    function getThreeWords(var S: string; var IsMore3Words:boolean): ThreeWords;
   end;
 
 var
@@ -177,9 +174,7 @@ begin
       end;
       i := i + 1;
     end;
-    if not IsNameWrite then
-      ShowMessage
-      ('Имя должно содержать не менее одной буквы или цифры! Повторите ввод имени!');
+
     if InputPlayersCnt < NumPlayers then
     begin
       ShowMessage
@@ -210,7 +205,7 @@ var
   f: TextFile;
   i: Integer;
 begin
-  AssignFile(f, '..\..\words.txt', CP_UTF8);
+  AssignFile(f, 'D:\ПОИТ\опи\Assotiations\Associations-game\App with interface\words.txt', CP_UTF8);
   Reset(f);
   i := 1;
   Result := '';
@@ -249,16 +244,20 @@ end;
 procedure TForm1.NewWordsSave; //сохранение в массив введенных слов, переход ввода к след. игроку
 var
   S: string;
+  IsMore3Words:boolean;
 begin
+  IsMore3Words:=false;
   ResultsPanel.Visible := false;
   S := Adj.Text;
-  PlayersWords[IndexPlayer][1] := getThreeWords(S);
+  PlayersWords[IndexPlayer][1] := getThreeWords(S, IsMore3Words);
   S := Verb.Text;
-  PlayersWords[IndexPlayer][2] := getThreeWords(S);
+  PlayersWords[IndexPlayer][2] := getThreeWords(S,IsMore3Words);
   S := Noun.Text;
-  PlayersWords[IndexPlayer][3] := getThreeWords(S);
+  PlayersWords[IndexPlayer][3] := getThreeWords(S,IsMore3Words);
   if InputFlag then
   begin
+  if IsMore3Words then
+    ShowMessage('Введено слишком много слов! Лишние были проигнорированы!');
     Inc(IndexPlayer);
     Adj.Lines.Clear; // очистка полей ввода
     Verb.Lines.Clear;
@@ -300,55 +299,12 @@ begin
     j := 1;
   WhoGuessLabel.Text := ('Игрок ' + Players[IndexPlayer].Name +
     ', вам нужно угадать слово');
-  MemoAdjGuess.Text := '';
+  GuessEdit.Text := '';
   // Attempt 1
   VerbGuess.Visible := false;
   NounGuess.Visible := false;
   for k := 1 to 3 do
     MemoAdjGuess.Lines.Add(PlayersWords[j][1][k]); //вывод прилагательных
-end;
-
-procedure TForm1.NounChange(Sender: TObject);
-var
-  i: Integer;
-begin
-  if Noun.Text = '' then
-    IsNameWrite := false
-  else
-    InputWordsCnt := 0;
-  i := 0;
-  while i < Noun.Lines.Count do
-  begin
-    Noun.Lines[i] := Trim(Noun.Lines[i]);
-    l := 1;
-    while l <= Length(Noun.Lines[i]) do
-    begin
-      CurInput := Noun.Lines[i][l];
-      r := l;
-      while (r + 1 <= Length(Noun.Lines[i]))
-            and (Noun.Lines[i][r] <> ' ')
-      do
-      begin
-        r := r + 1;
-        CurInput := CurInput + Noun.Lines[i][r];
-      end;
-      while (r + 1 <= Length(Noun.Lines[i]))
-            and (Noun.Lines[i][r + 1] = ' ')
-      do
-      begin
-        r := r + 1;
-      end;
-      l := r + 1;
-      InputWordsCnt := InputWordsCnt + 1;
-    end;
-    i := i + 1;
-  end;
-  if InputWordsCnt > 3 then
-  begin
-    ShowMessage
-    ('Введено слишком много слов! Лишние будут проигнорированы!');
-  end;
-  InputWordsCnt := 0;
 end;
 
 procedure TForm1.EditButtonOkClick(Sender: TObject);
@@ -361,7 +317,10 @@ begin
   if Guess <> '' then
   begin
     if not ButtonNextPlayer.Visible then
+    begin
       CheckAnswer(IsEndOne);
+      GuessEdit.Text := '';
+    end;
     IsRight.Visible := true;
     if IsEndOne then
       ButtonNextPlayer.Visible := true;
@@ -370,7 +329,8 @@ begin
     ShowMessage('Введите ваш ответ!');
 end;
 
-function TForm1.getThreeWords(var S: string): ThreeWords;
+
+function TForm1.getThreeWords(var S: string; var IsMore3Words:boolean): ThreeWords;
 var
   curS: string;
   cnt, l, r: Integer;
@@ -401,10 +361,10 @@ begin
     end;
   end;
   if cnt < 3 then
-    InputFlag := false;
+    InputFlag := false
+    else if  cnt > 3 then
+     IsMore3Words:=true;
   Result := res;
-  (* if cnt > 3 then
-    ShowMessage('Все слова после третьего были проигнорированы.'); *)
 end;
 
 procedure TForm1.CheckAnswer(var IsEndOne: boolean);
@@ -440,7 +400,6 @@ if IndexPlayer<NumPlayers then
           IsEndOne := true;
         end;
     end;
-    GuessEdit.Text := '';
   end
   else
   begin
@@ -466,10 +425,7 @@ if IndexPlayer<NumPlayers then
     IsEndOne := true;
   end;
   if IsEndOne then
-  begin
-    GuessEdit.Text := '';
     CountWrong := 0;
-  end;
 end;
 
 procedure TForm1.ClearGuessing;     //очистка панели после угадывания
@@ -492,48 +448,6 @@ begin
   ButtonNextPlayer.Visible := false;
 end;
 
-procedure TForm1.AdjChange(Sender: TObject);
-var
-  i: Integer;
-begin
-  if Adj.Text = '' then
-    IsNameWrite := false
-  else
-    InputWordsCnt := 0;
-  i := 0;
-  while i < Adj.Lines.Count do
-  begin
-    Adj.Lines[i] := Trim(Adj.Lines[i]);
-    l := 1;
-    while l <= Length(Adj.Lines[i]) do
-    begin
-      CurInput := Adj.Lines[i][l];
-      r := l;
-      while (r + 1 <= Length(Adj.Lines[i]))
-            and (Adj.Lines[i][r] <> ' ')
-      do
-      begin
-        r := r + 1;
-        CurInput := CurInput + Adj.Lines[i][r];
-      end;
-      while (r + 1 <= Length(Adj.Lines[i]))
-            and (Adj.Lines[i][r + 1] = ' ')
-      do
-      begin
-        r := r + 1;
-      end;
-      l := r + 1;
-      InputWordsCnt := InputWordsCnt + 1;
-    end;
-    i := i + 1;
-  end;
-  if InputWordsCnt > 3 then
-  begin
-    ShowMessage
-    ('Введено слишком много слов! Лишние будут проигнорированы!');
-  end;
-  InputWordsCnt := 0;
-end;
 
 procedure TForm1.ButtomNextRoundClick(Sender: TObject);
 begin
@@ -573,49 +487,6 @@ begin
     IndexPlayer := 1;
 end;
 
-procedure TForm1.VerbChange(Sender: TObject);
-var
-  i: Integer;
-begin
-  if Verb.Text = '' then
-    IsNameWrite := false
-  else
-    InputWordsCnt := 0;
-  i := 0;
-  while i < Verb.Lines.Count do
-  begin
-    Verb.Lines[i] := Trim(Verb.Lines[i]);
-    l := 1;
-    while l <= Length(Verb.Lines[i]) do
-    begin
-      CurInput := Verb.Lines[i][l];
-      r := l;
-      while (r + 1 <= Length(Verb.Lines[i]))
-            and (Verb.Lines[i][r] <> ' ')
-      do
-      begin
-        r := r + 1;
-        CurInput := CurInput + Verb.Lines[i][r];
-      end;
-      while (r + 1 <= Length(Verb.Lines[i]))
-            and (Verb.Lines[i][r + 1] = ' ')
-      do
-      begin
-        r := r + 1;
-      end;
-      l := r + 1;
-      InputWordsCnt := InputWordsCnt + 1;
-    end;
-    i := i + 1;
-  end;
-  if InputWordsCnt > 3 then
-  begin
-    ShowMessage
-    ('Введено слишком много слов! Лишние будут проигнорированы!');
-  end;
-  InputWordsCnt := 0;
-end;
-
 begin
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
@@ -623,4 +494,3 @@ begin
 
 end.
 
-//'D:\ПОИТ\Projects\words.txt'
