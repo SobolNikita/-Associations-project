@@ -237,8 +237,9 @@ end;
 procedure TForm1.NewWordsWriteField;
 var i: integer;
 begin
+   HandOverPanel.Visible:=true;
   InitializePlayersPanel.Visible := false;
-  WriteAssotPanel.Visible := true;
+ // WriteAssotPanel.Visible := true;
   LabelRound.Text := 'РАУНД ' + IntToStr(Round);
   IndexPlayer := 1;
   for i := 1 to NumPlayers do
@@ -277,27 +278,29 @@ end;
 procedure TForm1.ButtonHandOverClick(Sender: TObject);
 begin
   HandOverPanel.Visible := false;
+  if IndexPlayer > NumPlayers then
+  begin
+    WriteAssotPanel.Visible := false;
+    GuessingPanel.Visible := true;
+    IndexPlayer := 0;
+    NewWriteAdj;
+  end
+  else WriteAssotPanel.Visible:=true;
 end;
 
 procedure TForm1.ButtonDoneClick(Sender: TObject);
 begin
   InputFlag := true;
   NewWordsSave;
-  if (IndexPlayer < NumPlayers) and InputFlag then
-    HandOverPanel.Visible := true
-  else if IndexPlayer > NumPlayers then
-  begin
-    WriteAssotPanel.Visible := false;
-    GuessingPanel.Visible := true;
-    IndexPlayer := 0;
-    NewWriteAdj;
-  end;
+   WriteAssotPanel.Visible:=false;
+    HandOverPanel.Visible := true;
 end;
 
 procedure TForm1.NewWriteAdj; // угадывание слова (1 этап)
 var
   k, j: Integer;
 begin
+
   IndexPlayer := IndexPlayer + 1;
   j := IndexPlayer + 1;
   if j > NumPlayers then

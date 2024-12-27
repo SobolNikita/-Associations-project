@@ -206,7 +206,7 @@ object Form1: TForm1
       Size.Width = 177.000000000000000000
       Size.Height = 99.000000000000000000
       Size.PlatformDefault = False
-      TabOrder = 6
+      TabOrder = 8
       Text = #1053#1040#1063#1040#1058#1068
       TextSettings.Font.Size = 18.000000000000000000
       TextSettings.Font.StyleExt = {00060000000000000004000000}
@@ -250,6 +250,21 @@ object Form1: TForm1
       Text = 'ASSOCIATIONS GAME'
       TabOrder = 0
     end
+    object NamesMemo: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      StyledSettings = [Family, Style, FontColor]
+      TextSettings.Font.Size = 18.000000000000000000
+      Position.X = 202.000000000000000000
+      Position.Y = 136.000000000000000000
+      Size.Width = 249.000000000000000000
+      Size.Height = 154.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 5
+      Visible = False
+      Viewport.Width = 245.000000000000000000
+      Viewport.Height = 150.000000000000000000
+    end
     object Label2: TLabel
       Align = Scale
       StyledSettings = [Family]
@@ -261,21 +276,6 @@ object Form1: TForm1
       TextSettings.Font.Size = 14.000000000000000000
       Text = #1042#1099#1073#1077#1088#1080#1090#1077' '#1082#1086#1083#1080#1095#1077#1089#1090#1074#1086' '#1080#1075#1088#1086#1082#1086#1074
       TabOrder = 2
-    end
-    object NamesMemo: TMemo
-      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
-      DataDetectorTypes = []
-      StyledSettings = [Family, Style, FontColor]
-      TextSettings.Font.Size = 18.000000000000000000
-      Position.X = 202.000000000000000000
-      Position.Y = 136.000000000000000000
-      Size.Width = 249.000000000000000000
-      Size.Height = 154.000000000000000000
-      Size.PlatformDefault = False
-      TabOrder = 4
-      Visible = False
-      Viewport.Width = 245.000000000000000000
-      Viewport.Height = 150.000000000000000000
     end
     object NamesLabel: TLabel
       StyledSettings = [Family, Style]
@@ -477,7 +477,7 @@ object Form1: TForm1
       Position.X = 96.000000000000000000
       Position.Y = 25.000000000000000000
       Size.Width = 450.000000000000000000
-      Size.Height = 19.000000000000000000
+      Size.Height = 18.666664123535160000
       Size.PlatformDefault = False
       TextSettings.Font.Size = 14.000000000000000000
       TextSettings.Font.StyleExt = {00060000000000000004000000}
